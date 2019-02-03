@@ -5,7 +5,7 @@ ENV PATH /go/bin:/usr/local/go/bin:$PATH
 ENV GOPATH /go
 
 RUN	apk add --no-cache \
-	--repository https://dl-3.alpinelinux.org/alpine/edge/main/ \
+	--repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
 	bash \
 	ca-certificates \
 	git \
@@ -14,15 +14,13 @@ RUN	apk add --no-cache \
 	yarn \
 	zip
 
-ENV VAULT_VERSION v0.11.0-beta1
+ENV VAULT_VERSION v1.0.1
 
 RUN go get github.com/hashicorp/vault
 
 WORKDIR /go/src/github.com/hashicorp/vault
 
 RUN git checkout "${VAULT_VERSION}"
-
-#RUN yarn global add bower
 
 RUN XC_ARCH="amd64" XC_OS="linux" XC_OSARCH="linux/amd64" LD_FLAGS=" -extldflags -static " make bootstrap static-dist bin \
 	&& mv bin/vault /usr/bin/vault
