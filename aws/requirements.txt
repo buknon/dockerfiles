@@ -3,3 +3,6 @@ requests
 configparser
 bs4
 #urllib4
+ekscli
+awsebcli
+
